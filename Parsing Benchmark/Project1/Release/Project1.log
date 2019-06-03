@@ -1,0 +1,16 @@
+﻿  main.cpp
+D:\AdvOS_Project\Project1\Project1\main.cpp(78): warning C4101: 'tmp': unreferenced local variable
+D:\AdvOS_Project\Project1\Project1\main.cpp(126): warning C4244: '=': conversion from 'double' to 'u64_t', possible loss of data
+D:\AdvOS_Project\Project1\Project1\main.cpp(129): warning C4244: '=': conversion from 'double' to 'u64_t', possible loss of data
+D:\AdvOS_Project\Project1\Project1\main.cpp(132): warning C4244: '=': conversion from 'double' to 'u64_t', possible loss of data
+D:\AdvOS_Project\Project1\Project1\main.cpp(135): warning C4244: '=': conversion from 'double' to 'u64_t', possible loss of data
+D:\AdvOS_Project\Project1\Project1\main.cpp(138): warning C4244: '=': conversion from 'double' to 'u64_t', possible loss of data
+D:\AdvOS_Project\Project1\Project1\main.cpp(141): warning C4244: '=': conversion from 'double' to 'u64_t', possible loss of data
+D:\AdvOS_Project\Project1\Project1\main.cpp(288): warning C4018: '<': signed/unsigned mismatch
+D:\AdvOS_Project\Project1\Project1\main.cpp(291): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  129 of 340 functions (37.9%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
+    66 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Project1.vcxproj -> D:\AdvOS_Project\Project1\Release\Project1.exe
