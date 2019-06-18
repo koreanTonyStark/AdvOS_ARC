@@ -1,0 +1,6 @@
+lines = 14294158
+total size = 549174
+accessed page = 14294158
+hit = 4983282, miss = 9310876, hit ratio = 0.348624
+execution time : 37.445
+¿Ã∞‘ output_web_vm.txt

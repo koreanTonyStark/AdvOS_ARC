@@ -1,0 +1,5 @@
+lines = 1532120
+total size = 5092722
+accessed page = 11184349
+hit = 386024, miss = 10798325, hit ratio = 0.034515
+execution time : 23.208

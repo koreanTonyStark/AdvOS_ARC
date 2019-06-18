@@ -1,0 +1,221 @@
+\section{Evaluation}
+
+
+
+\subsection{Collecting Benchmark Traces}\label{Trace}
+
+Table I summarizes various traces that we used in this paper. These traces mainly include 3 traces. FIU Traces~\cite{fiu}, MS Production server traces~\cite{microsoft}, MS Enterprise traces~\cite{microsoft}. We use these traces because it is widely used for second storage research area, also it is available for free via SNIA/IOTTA(Storage Networking Industry Association's Input/Output Traces, Tools, and Analysis)~\cite{snia}.
+
+
+
+\begin{table}[h]
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Trace Name}&\textbf{Number of Request} & \textbf{Unique Pages} \\
+\cline{2-3} 
+\hline
+Exch   & 77304451 & 21724991    \\ 
+\hline
+DAP-DS & 11184349 & 5092722   \\
+MSN    & 11115258 & 7209398   \\
+RAD-AS & 5529468 & 3323691   \\
+RAD-ES & 39405995 & 20608323 \\        
+\hline
+HOMES  & 21163638  & 4760647 \\
+WEB-VM & 14294158 & 549174 \\
+MAIL   & 14010588 & 1913909 \\
+
+\hline
+\end{tabular}
+\label{tab1}
+\end{center}
+\caption{Summary of disk traces}
+\end{table}
+
+For all traces, the page size is 4KB. Also, all hit ratios reported in this paper are cold start. We will report hit ratios in percentages (\%). We briefly explain the characteristics of each disk traces on the following subsections from 1) to 3). For all traces, We first append all logs of it and parsed disk I/O pattern from them.
+\vspace{0.3cm}
+\subsubsection{Traces 1} MS Enterprise traces
+ 
+
+\begin{itemize}
+\item Exchange server (\textbf{Exch}) \\
+ The Microsoft Exchange 2007 SP1 server is a mail server
+for 5000 corporate users. It is a 4-socket, dual-core system
+with 4 GB of memory. The storage consists of two 146 GB
+SAS drives in a RAID-1 configuration, six data arrays of
+fourteen 146 GB SAS drives, and two log arrays of eight
+146 GB SAS drives configured as RAID-10. One trace
+covers a 5-hour peak load period on a weekday afternoon.
+Another trace covers a 24-hour weekday period. The traces
+are broken into 15-minute intervals. 
+\end{itemize}
+
+\subsubsection{Traces 2} MS Production Server traces
+
+\begin{itemize}
+\item Display Ads Platform data and payload servers(\textbf{DAP}) \\
+ The purpose of the data server (\textbf{DS}) is to be a caching tier
+between the front-end server and the payload server (PS). A
+front-end server makes an advertisement request with a user
+id to the \textbf{DS}. The \textbf{DS} looks up the user id in the cache,
+appends any information available for that user to the
+request, and passes the request to the PS. The PS is
+responsible for ad selection. The traces from the DS and PS
+cover a 24-hour period and are broken into 30-minute
+intervals.
+\end{itemize}
+
+\begin{itemize}
+\item MSN storage metadata and file servers (\textbf{MSN}) \\
+ The CFS server stores metadata information and blobs correlating users to files stored on the back-end file server(\textbf{MSN}). The \textbf{MSN} provides the files requested by CFS. The servers are used by serval Live data services. The traces from the CRS and \textbf{MSN} cover a 6-hour period and are borken into 10-minute intervals.
+
+
+
+\end{itemize}
+
+
+
+\begin{itemize}
+\item RADIUS authentication and back-end server (\textbf{RAD}) \\
+ The RADIUS authentication server (AS) is responsible for
+worldwide corporate remote access and wireless
+authentication. It runs the IPSec NAP scenario. Data comes
+in via SQL replication on the back-end SQL server (\textbf{ES}).
+The traces from the AS and \textbf{ES} cover an 18-hour period and
+are broken into 1-hour intervals.
+\end{itemize}
+
+
+
+\subsubsection{Traces 3} FIU traces
+
+\begin{table*}[th]
+    \captionsetup{font=normalsize}
+    \normalsize
+    \centering
+    
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+
+\hline
+ &\textbf{EXCH} & \textbf{DAP-DS} & \textbf{MSN} & \textbf{RAD-AS} & \textbf{RAD-ES} & \textbf{HOMES} & \textbf{WEB-VM} & \textbf{MAIL} \\
+\hline
+\cline 
+
+$p=0$ &           $12.71$ & $3.59$ & $16.71$ & $22.19$ & $19.43$ & $59.28$ & $73.16$ & $54.61$   \\ 
+\hline
+$p=\frac{c}{2}$ & $12.88$ & $ 3.78$ & $16.53 $ & $22.42 $ & $20.64 $ & $58.81 $ & $70.71 $ & $53.65 $ \\ 
+\hline
+$p=c$ &           $12.65$ & $3.69$ & $15.77$ & $20.34$ & $19.57$ & $59.39$ & $73.13$ & $54.60$ \\ 
+\hline
+        \end{tabular}
+\caption{Hit ratio as varying initial value $p$}
+\end{table*}
+
+\vspace{0.2cm}
+
+
+\begin{table*}[th]
+    \captionsetup{font=normalsize}
+    \normalsize
+    \centering
+    
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+
+\hline
+ &\textbf{EXCH} & \textbf{DAP-DS} & \textbf{MSN} & \textbf{RAD-AS} & \textbf{RAD-ES} & \textbf{HOMES} & \textbf{WEB-VM} & \textbf{MAIL} \\
+\hline
+\cline 
+
+$p_{max}=c$ &           $12.71$ & $3.59$ & $16.71$ & $22.19$ & $19.43$ & $59.28$ & $73.16$ & $54.61$   \\ [1ex]
+\hline
+$p_{max}=\frac{1}{3}c$ & $12.86$ & $2.84$ & $16.26$ & $19.59$ & $12.62$ & $ 56.18 $ & $67.59$ & $54.26$ \\ [1ex]
+\hline
+$p_{max}=\frac{2}{3}c$ & $12.88$ & $3.45$ & $18.07$ & $21.58$ & $20.62$ & $59.05$ & $74.60$ & $55.81$   \\ [1ex]
+\hline
+$p_{max}=\frac{4}{3}c$ & $12.85$ & $3.56$ & $9.84$ & $19.09$ & $20.91$ & $49.87$ & $79.47$ & $49.87$   \\ [1ex]
+\hline
+$p_{max}=\frac{5}{3}c$ & $12.48$ & $3.37$ & $7.01$ & $15.80$ & $19.77$ & $42.87$ & $78.90$ & $42.87$   \\ [1ex]
+\hline
+
+        \end{tabular}
+\caption{Hit ratio as varying limit value of $p$}
+\end{table*}
+
+
+
+
+
+
+\begin{table*}[th]
+    \captionsetup{font=normalsize}
+    \normalsize
+    \centering
+    
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+
+\hline
+ &\textbf{EXCH} & \textbf{DAP-DS} & \textbf{MSN} & \textbf{RAD-AS} & \textbf{RAD-ES} & \textbf{HOMES} & \textbf{WEB-VM} & \textbf{MAIL} \\
+\hline
+\cline 
+
+ORIGIN & $12.71$ & $3.59$ & $16.71$ & $22.19$ & $19.43$ & $59.28$ & $73.16$ & $54.61$   \\ 
+\hline
+CONST & $12.79$ & $3.64$ & $15.81$ & $21.32$ & $20.60$ & $ 58.82 $ & $ 71.94 $ & $ 52.87 $ \\ 
+\hline
+LOG &   $12.71$ & $ 3.57 $ & $ 16.26 $ & $ 21.61 $ & $19.44$ & $ 59.22 $ & $ 73.45 $ & $53.91$   \\
+\hline
+EXP &   $12.88$ & $ 3.72 $ & $ 16.37 $ & $ 22.47 $ & $ 20.60$ & $ 58.72 $ & $ 70.63 $ & $ 53.59 $   \\ 
+\hline
+
+
+        \end{tabular}
+\caption{Hit ratio as varying the value of learning rate \delta}
+\end{table*}
+
+
+
+
+\begin{itemize}
+\item Virtual machine running 2 web-servers (\textbf{WEB-VM}) \\
+The \textbf{WEB-VM} workload is collected from a virtualized system that hosts two CS
+department web-servers, one hosting the department's online course management system
+and the other hosting the department's web-based email access portal. the local virtual disks
+which were traced only hosted root partitions containing the OS distribution, while the http data for these web-servers reside on a network-attached storage.
+\end{itemize}
+
+\begin{itemize}
+\item Mail-Server from FIU (\textbf{MAIL}) \\
+The \textbf{MAIL} workload serves user INBOXes for the entire Computer Science department at FIU(Florida International University).
+\end{itemize}
+
+\begin{itemize}
+\item NFS server from FIU (\textbf{HOMES}) \\
+The \textbf{HOMES} workload is that of a NFS server that serves the home directories of FIU's small-sized research group; activities represent those of a typical researcher consisting of software development, testing, and experimentation, the use of graph-plotting software, and technical document preparation.
+\end{itemize}
+
+To simulate the cache behaviours, we fix the disk cache size as 256MB. From fixing the disk cache size and page size, and collecting disk I/O traces, we run total 72 simulation by varying some tunable parameters as we mentioned in Section IV. 
+
+
+\subsection{Experimental Result}\label{expresult}
+
+
+
+\subsubsection{Experiment 1} Initial Value of $p$ \\
+ As we mentioned in Section IV, we vary initial $p$ value as 0, $\frac{c}{2}$ and $c$. Table II shows the result hit ratio of each trace. The first column of the table represents the initial value of $p$. In case of $p=c$ which means the initial value of $p$ is $c$, only HOMES derives higher hit ratio compared with the other 2 cases. In case of $p=\frace{c}{2}$, EXCH,DAP-DS,RAD-AS and RAD-ES derives higher hit ratio compared with the other 2 cases. Maximum difference value among $p=0$ and $p=c$ appears as approx 3\% in WEB-VM. Normally, the gap among all 3 cases comes with the degree of $10^{-1}$. Conclusionally, there is no tendency with the initial value $p$ and the amount of standard deviation in Experiment 1 is normally negligible.
+\vspace{0.2cm}
+
+\subsubsection{Experiment 2} Limit Value of $p$ \\
+We now vary the limit value of $p$ which means the maximum length of LRU portion as $\frac{1}{3}c$, $\frac{2}{3}c$, $c$, $\frac{4}{3}c$, $\frac{5}{3}c$. This intuitively indicates that the rate between LRU and LFU becomes 1:5, 1:2, 1:1, 2:1 and 5:1 since ARC uses ghost cache size as $2c$. Table III shows the result hit ratio of each trace. $p_{max}$ means that we fix the maximum size of $p$ as $p_{max}$. In case of $p_{max}=c$, DAP-DS, RAD-AS and HOMES derives the most highest hit ratio among them. In case of $p_{max}=\frac{2}{3}c$, EXCH, MSN and MAIL derives the most highest hit ratio. In case of $p_{max}=\frac{4}{3}c$, RAD-ES and WEB-VM derives the most highest hit ratio. We can expect that these EXCH, MSN and MAIL traces are more LFU-biased workloads since ARC can expand its maximum size for LRU portion maximum to $\frac{2}{3}c$. i.e. $L_1$. On the contrary to this, RAD-RES and WEB-VM traces are more LRU-biased workloads since ARC can expand to its maximum size for LRU portion maximum to $\frac{4}{3}c$. i.e. $L_1$. Lastly, DAP-DS,RAD-AS, and HOMES are balanced workload between LRU and LFU since they derive the most highest ratio in case, $p_{max}=c$. Note that we are dealing with the cache directory size i.e. ghost cache size not the actual size of the cache. Interesting finding is that for all of them, the worst-case hit ratio configurations always appear when $p_{max}$ is either $\frac{1}{3}c$ or $\frac{4}{3}c$. This intuitively indicates that since we forcibly suppress the size of $p$ into $\frac{1}{3}c$ or $\frac{4}{3}c$, it cannot freely enjoy the freedom of adaptive replacement. At first, we anticipated that more LRU/LFU-intesive workload can get more higher ratio on these configurations. However, this tendency tells us that real-world workloads are not purely 100\% biased to LRU or LFU, in which, is the mixture type of LRU and LFU. Also, we can see original-ARC always performs above the average with all simulation cases. In summary, ARC performs well with respect to the adaptive replacement. Also, there exists some cases that performs better than ARC when we assign the maximum value $p$ with the bounded range from $c$.
+
+
+\vspace{0.2cm}
+\subsubsection{Experiment 3} Learning Rate \\
+In this simulation experiment, We now vary the learning rate value with the ORIGIN, CONST, LOG and EXP. ORIGIN denotes that the value of learning rate is same as ARC~\cite{arc}. CONST denotes that in contrary to Eq. (1), if we encountered the phantom-hit, then we always increase/decrease the size of $T_1$ as 2.  LOG denotes that the value of learning rate is $\log_2{\delta}$. Note that $\delta$ denotes the original learning rate value of ARC. Lastly, EXP denotes that the value of learning rate is $2^\delta$. Table IV shows the hit ratio of each traces. For MSN, HOMES, and MAIL, \textbf{ORIGIN} derives the most highest hit ratio among 4 configurations. For WEB-VM, \textbf{LOG} derives the most highest. For EXCH, DAP-DS, RAD-AS, and RAD-ES, \textbf{EXP} derives the most highest. \textbf{LOG} indicates that it smoothly does re-sizing compared to \textbf{ORIGIN}. Similarly, \textbf{EXP} indicates that it roughly does re-sizing compared to \textbf{ORIGIN}. We denote these trace sets as 1) Group 1 : EXCH, DAP-PS, RAD-AS, RAD-ES 2) Group 2: MSN, HOMES, MAIL, 3) Group 3 : WEB-VM. From Table IV, We can speculate the traces of Group 3 smoothly changes its I/O access pattern among three groups. Contrary to Group 3, we can speculate the traces of Group 1 roughly changes its I/O access pattern among three groups. Conclusionally, ARC(i.e. ORIGIN) performs well above the average for the all simulation cases. Also, in case of EXP, it performs better than ARC(i.e. ORIGIN) in 4 traces up to maximum 0.6\%. For the other 4 cases, EXP performs worse than ARC, but the difference between EXP and ARC(i.e. ORIGIN) is up to maximum 0.4\% except MAIL traces. We suggest that the exponential learning rate value is quite good-option based on the results in Table IV. 
+
+Finally, we present our contributions. 1)We confirm that the effectiveness of ARC is still valid through real-life benchmark traces which is widely used in research-area nowadays. In Table III, ARC performs better than $p_{max}=\frac{5}{3}c$ up to maximum 17\% except RAD-ES and WEB-VM. $p_{max}=\frac{5}{3}c$ indicates that it behaves like LRU(not exactly LRU) since the portion of LRU is 5 times larger than the portion of LFU. With this result, we can say ARC performs better than LRU for the most of general workloads. 2)We investigate the authentic "self-tunablity" by performing Experiment 1 to 3. From Experiment 1, we confirmed that the change of initial value $p$ affects negligibly small amount on the hit ratio. In terms of initial value $p$, we can say ARC is self-tunable. From Experiment 2, we confirmed that the changes of limit value $p$ affect quite larger portion of the hit ratio. However, it is workload-dependent. Also, we verified when the limit value of $p$ gets smaller or bigger from $c$, it performs much worse on every workload. This indicates that if we balance the portion of LRU(i.e. $L_1$) and LFU(i.e. $L_2$) closer to 1:1, we can ensure that it will perform not the highest but the above average on a certain workload compare to other configurations. In short, the choice of $p$ to $c$ was best-choice.
+From Experiment 3, we confirmed that the value of learning rate in ARC performs above the average on all traces. However, we also found that assigning the value of learning rate like \textbf{EXP} is also quite good-option. We insist that selecting the learning rate value like \textbf{EXP} gives much higher ratio on some workloads which dynamically changes its I/O access. And it also ensures that even if it does not perform than ARC, the gap between EXP and ARC are quite tolerable for that kind of workloads.
+
+
+

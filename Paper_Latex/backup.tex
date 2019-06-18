@@ -1,0 +1,47 @@
+\begin{itemize}
+\item Live Maps front-end and back-end servers(\textbf{LM}) \\
+ \indent Virtual Earth is a feature of Live Maps that displays satelite images and photographs of locations. The tile front-end server(\textbf{TFE}) takes a user request for location and passes it to the tile back-end server(\textbf{TBE}). The TBE hosts a portion of the map imagery. It accesses the image tiles from a disk and sends them to the TFE, which then mashes up the image by adding routes, markers and other relevant information and sends it back to the user. The traces from the TFE and TBE cover a 24-hour period and are broken into 1-hour intervals.
+\end{itemize}
+
+\begin{itemize}
+\item Windows build server (\textbf{WBS}) \\
+ The WBS produces a complete build each day for the
+32-bit version of the Windows Server operating system. It is
+a 2-socket quad-core system with 8 GB of memory. The
+storage consists of eight 146 GB disks configured as
+RAID-0. To capture the complete build process as well as
+any disk activity during idle periods, the trace covers a
+24-hour period and is broken into 15-minute intervals.
+\end{itemize}
+
+\begin{itemize}
+\item Developer tools release server (\textbf{DTRS}) \\
+ The DTRS is a file server accessed by more than
+3000 users to download various daily builds of Microsoft
+Visual Studio (copied from dedicated build servers). It is a
+2-socket single-core system with 2 GB of memory. The
+storage consists of a single Vdisk of 40 GB configured as
+RAID-10 storage. The Vdisk is part of a 219-disk SAN. The
+traces from the DTRS cover a 24-hour period and are broken
+into 1-hour intervals.
+\end{itemize}
+
+\begin{itemize}
+\item Database benchmarks :  (\textbf{TPC-C and TPC-E}) \\
+TPC-C is an online transaction processing (OLTP)
+benchmark simulating an order-entry environment ~\cite{tpcc}. It is
+a mix of five concurrent transactions of different
+complexities. TPC-E is the successor of the TPC-C
+benchmark and simulates the workload of a brokerage firm
+. TPC-E ~\cite{tpcc} transactions are more complex than those of
+TPC-C, and they more closely resemble modern OLTP
+transactions. TPC-E has lower storage throughput
+requirements than TPC-C. The TPC-C trace covers
+5 minutes of a steady state, fully scaled workload running on
+a 4-socket, dual-core system with 64 GB of memory. The
+storage consists of 14 RAID-0 disk arrays of 28 disks each.
+The TPC-E trace covers 10 minutes of a steady state, fully
+scaled workload running on a 4-socket quad-core system
+with 128 GB of memory. The storage consists of 12 RAID-0
+disk arrays of 28 disks each.
+\end{itemize}

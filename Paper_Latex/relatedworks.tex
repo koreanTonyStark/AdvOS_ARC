@@ -1,0 +1,19 @@
+\vspace{0.2cm}
+\section{Related Works}
+
+For cache replacement policy, it is well-known that Belady's MIN~\cite{belady} algorithm is offline optimal in terms of hit ratio. Belady's MIN replaces the page that has the greatest distance. The policy MIN provides an upper bound on the achievable hit ratio by any on-line policy.
+
+\subsection{Recency}
+The policy LRU~\cite{lru} always replaces the least recently used page. LRU has several advantages, for example, it is simple to implement and responds well to changes in the underlying SDD(Stack Depth Distribution) model. However, it does not capture frequency. That is, in the long run, that each page is equally likely to be referenced and that therefore the model is useful for treating the clustering effect of locality but not the nonuniform page referencing. However, LRU still dominates among cache replacement policies because it is simple to implement and shows quite-good performance for all workloads.
+
+
+\subsection{Frequency}
+The Independent Reference Model(IRM) provides a workload characterization that captures the notion of frequency. Specifically, IRM assumes that each page reference is drawn in an independent fashion from a fixed distribution over the set of all pages in the auxiliary memory. The LFU~\cite{lru} captures frequency but it has several drawbacks. It requires logarithmic implementation complexity in cache size, pays almost no attention to recent history, and does not adapt well to changing access patterns since it accumulates stale pages with high frequency counts that may no longer be useful.
+
+\subsection{Combining Recency and Frequency}
+Several algorithms has been published to capture both recency and frequency. For example, FBR(Frequency-Based Replacement)~\cite{fbr} policy maintains a LRU list, but divides it into three sections : new, middle, and old. The key idea known as factoring out locality was that if the hit page was in the new section then the reference count is not incremented. On a cache miss, the page in the old section with the smallest reference count is replaced. Drawbacks of FBR is that to prevent cache poluution due to stale pages with high reference count but no recent usage the algorithm must periodically resize all the reference counts. The algorithm also has several tunable parameters, namely, the sizes of all three sections, and some other parameteres $C_{max}$ and $A_{max}$ that control periodic resizing. Another example, LRFU(Least Recently/Frequently Used) policy ~\cite{lrfu} subsumes LRU and LFU. Main difference between LRFU and FBR is that LRFU frequently weights each page's age more than FBR, that is, LRFU weights each page's age on every page access, but FBR periodically resizes the page's age. Also, LRFU has tunable parameter $\lambda$ and the performance of LRFU highly depends on $\lambda$. Now, we introduce ARC~\cite{arc} in Section III. More algorithm exists such as LARC~\cite{larc}, SARC~\cite{sarc}, CFLRU~\cite{cflru}, AIP~\cite{aip}, RRIP~\cite{rrip}, and etc. However, it is beyond the scope of this paper. If interested, refer these research papers.
+
+
+
+
+

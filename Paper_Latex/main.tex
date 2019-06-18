@@ -1,0 +1,91 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+
+
+%package
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{caption}
+\usepackage{multicol}
+\usepackage{blindtext}
+\usepackage{stackengine}
+
+
+
+
+%format
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+
+%title
+\title{After ARC : Consideration about Self-Tuning \\
+{\footnotesize \textsuperscript}
+\thanks{Advanced Operating System Term-Project}
+}
+
+\author{\IEEEauthorblockN{Jaehwan Jeong}
+\IEEEauthorblockA{\textit{Department of Computer Science and Engineering} \\
+\textit{Seoul Nat'l Univ, Real-Time Ubiquitous Systems Lab}\\
+Seoul, Korea \\
+jhjeong@rubis.snu.ac.kr}
+\and
+\IEEEauthorblockN{Tackhee Lee}
+\IEEEauthorblockA{\textit{Department of Computer Science and Engineering} \\
+\textit{Seoul Nat'l Univ, 3D Modeling and Processing Lab}\\
+Seoul, Korea \\
+thlee@3map.snu.ac.kr}
+}
+
+
+
+\maketitle
+
+\begin{abstract}
+This paper precisely speculates the probable enhancement of the adaptive replacement cache called ARC. More specifically, this paper introduces 3 tunable parameters which was fixed in previous adaptive replacment cache. We logically show the reasonable description that each parameter has  potential increase factor for the hit ratio of disk cache. We collected several traces that are widely-used in research-area for effective evaluation in terms of practicality.   
+Conclusionally, This paper aims at finding 1)effectiveness of ARC is still valid in current days 2)our speculation called ``After-ARC" is reasonable. In order to find 1) and 2),  We evaluate ARC and ``After-ARC" with real-world benchmarks disk traces. Experimental results show that ARC is still valid in currently used benchmarks and our speculation ``After ARC" shows some interesting findings through results compare to ARC. 
+
+\end{abstract}
+
+\vspace{0.3cm}
+\begin{IEEEkeywords}
+Storage management-Secondary Storage, Cache Replacement Policy, Disk Cache, Adaptive Replacement Cache
+\end{IEEEkeywords}
+
+\input{introduction}
+
+\input{relatedworks}
+
+\input{arc}
+
+\input{consideration}
+
+\input{evaluation}
+
+\input{discussion}
+
+\input{conclusion}
+
+
+
+ 
+
+
+
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{archive}
+
+
+
+\vspace{12pt}
+
+
+\end{document}

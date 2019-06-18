@@ -1,0 +1,38 @@
+\section{Consideration about "self-tuning"}
+
+In ARC, they actually assign $p$ i.e. the maximum length of $|T_1|$ as 0 before starting, and they limits the maximum size of $p$ with $c$ i.e. actual cache size. Also, when phantom-hit occurs on $B_1$, they increase the size of $T_1$ from the following equation. 
+
+\vspace{0.3cm}
+\scalebox{0.9}{
+\begin{equation}\label{eq1}
+
+p = min\{p+\delta_{1}, c\}, 
+\, \text{where} \; 
+\delta_1 = \begin{cases} 1           & \text{if} |B_1| \geq |B_2|  \\
+                         |B_2|/|B_1| & \text{otherwise.}
+
+\end{cases} 
+\end{equation}
+}
+
+\vspace{0.2cm}
+When phantom-hit occurs on $B_2$, they decrease the size of $T_1$ like Eq.(1), but differs with ``+" to ``-", and the inequality on Eq. (1) reverses from $\geq$ to $\leq$. Other things are exactly same. For simplicity, from now on, we will mark learning rate value as $\delta$ no matter whether phantom-hit occurs on $B_1$ or $B_2$. Eq. (1) intuitively involves the intention that if the following inequality $|B_2| \geq |B_1|$ holds, then there will be a lot of chances for encountering phantom-hit on $B_1$ again. So in order to avoid that situation again, ARC increase the size of $p$ as $|B_2|/|B_1|$ not 1, and it is called learning rate.
+
+\subsection{Initial Value of $p$}
+In ARC, it starts algorithm with initial value $p$ as 0, However, assigning $p$ with value 0 does not guarantee that it is the best-choice. $p$ indicates that ARC tries to re-size the length of $T_1$ to $p$ as much as possible. Although ARC will adaptively change the parameter $p$ during its runtime, initial value of $p$ still can affect the hit ratio of the workload. So, we aim to evaluate the effectiveness of initial value $p$ in terms of portion on hit ratio and the value itself by changing initial value of $p$   
+
+
+\subsection{Limit value of $p$}
+In ARC, it limits the maximum size of $p$ as c. This indicates that even though a certain workload is highly LRU-intensive, ARC cannot increase the size of LRU portion i.e. $|L_1|$ to $2c$. We guess that author's intention is 1)balancing the portion of LRU and LFU to 1:1. 2)It is meaningless because if phantom-hit occurs, then that page always goes to the MRU position of $T_2$, so it can be covered by $T_2$ even for the highly LRU-intensive workloads too. Although this is acceptable, There's no right answer on that. So, we aim to evaluate the effectiveness of the maximum value of $p$ in terms of LRU-LFU portion by changing the maximum value of $p$. 
+
+
+\subsection{Learning Rate}
+In ARC, if phantom-hit occurs, then they increase the size of $p$ following as Eq. (1). Learning rate i.e. Eq. (1) indicates that ARC prefers to avoid the phantom-hit on the same hidden list i.e. $B_1$ or $B_2$. However, the value of learning rate, $\delta$ does not guarantee that it is the best-choice. So, we aim to evaluate the effectiveness of the learning rate by changing $\delta$.
+
+More specifically, First, we vary initial value of $p$ as 0, $\frac{c}{2}$ and $c$. Second, we vary limit value of $p$ as c, $\frac{1}{3}c$ $\frac{2}{3}c$, $\frac{4}{3}c$ and $\frac{5}{3}c$. Lastly, we vary the learning rate $\delta$ as $\pm2$, $\delta$, $\log_2{\delta}$ and $2^\delta$. Experimental results are shown in Section V.
+
+
+
+
+
+
