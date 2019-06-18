@@ -6,7 +6,7 @@ advOS_Project - Jaehwan Jeong, Tackhee Lee
    - ARC Implementation : Finished 
  
  #
- 2) Benchmark parsing (Disk I/O trace) : not exists in this repository only exists parsing code.
+ 2) Benchmark parsing (Disk I/O trace) : not exists in this repository only exists parsing code.  
   @brief : you can get disk io trace of each benchmark in url of each below part.  
    - FIU trace : http://iotta.snia.org/historical_section?tracetype_id=3 
    - Systor'17 trace : http://iotta.snia.org/tracetypes/3
